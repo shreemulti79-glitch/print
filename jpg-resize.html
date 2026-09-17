@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>JPG Resize - Shree Multi Services</title>
+
+<style>
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:Arial,"Noto Sans Devanagari",sans-serif;
+    background:#f2f5fa;
+    color:#222;
+}
+
+.header{
+    background:linear-gradient(135deg,#173b8f,#315fd4);
+    color:white;
+    padding:22px 15px;
+    text-align:center;
+}
+
+.header h1{
+    margin:0;
+    font-size:28px;
+}
+
+.header p{
+    margin:7px 0 0;
+    font-size:15px;
+}
+
+.container{
+    max-width:1100px;
+    margin:25px auto;
+    padding:0 15px;
+}
+
+.card{
+    background:white;
+    border-radius:15px;
+    padding:22px;
+    margin-bottom:20px;
+    box-shadow:0 5px 20px rgba(0,0,0,0.08);
+}
+
+.upload-box{
+    border:2px dashed #315fd4;
+    border-radius:12px;
+    padding:30px;
+    text-align:center;
+    background:#f7f9ff;
+}
+
+.upload-box input{
+    margin-top:15px;
+    font-size:16px;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:18px;
+}
+
+.field{
+    margin-bottom:15px;
+}
+
+.field label{
+    display:block;
+    font-weight:bold;
+    margin-bottom:7px;
+}
+
+.field input,
+.field select{
+    width:100%;
+    padding:12px;
+    border:1px solid #ccc;
+    border-radius:8px;
+    font-size:16px;
+}
+
+.info{
+    background:#eef4ff;
+    padding:12px;
+    border-radius:8px;
+    margin-top:12px;
+    line-height:1.7;
+}
+
+.checkbox{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    margin:15px 0;
+    font-weight:bold;
+}
+
+.checkbox input{
+    width:18px;
+    height:18px;
+}
+
+.buttons{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-top:20px;
+}
+
+button{
+    border:0;
+    border-radius:8px;
+    padding:13px 20px;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.btn-blue{
+    background:#315fd4;
+    color:white;
+}
+
+.btn-green{
+    background:#198754;
+    color:white;
+}
+
+.btn-orange{
+    background:#f39c12;
+    color:white;
+}
+
+.btn-gray{
+    background:#6c757d;
+    color:white;
+}
+
+button:hover{
+    opacity:.9;
+}
+
+.preview-area{
+    text-align:center;
+    min-height:200px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:#fafafa;
+    border-radius:10px;
+    padding:20px;
+    overflow:auto;
+}
+
+#preview{
+    max-width:100%;
+    max-height:600px;
+    display:none;
+    box-shadow:0 3px 12px rgba(0,0,0,.2);
+}
+
+.original{
+    color:#666;
+}
+
+.status{
+    margin-top:12px;
+    font-weight:bold;
+}
+
+.footer{
+    text-align:center;
+    padding:20px;
+    color:#555;
+    font-size:14px;
+}
+
+@media(max-width:700px){
+    .grid{
+        grid-template-columns:1fr;
+    }
+
+    .header h1{
+        font-size:23px;
+    }
+
+    .upload-box{
+        padding:20px;
+    }
+
+    button{
+        width:100%;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+    <h1>📷 JPG Resize</h1>
+    <p>श्री मल्टी सर्व्हिसेस (महा ई सेवा केंद्र)</p>
+</div>
+
+<div class="container">
+
+    <!-- Upload -->
+    <div class="card">
+        <div class="upload-box">
+            <h2>📁 JPG फोटो निवडा</h2>
+            <p>तुमच्या संगणकातून JPG / JPEG फोटो निवडा</p>
+
+            <input
+                type="file"
+                id="imageInput"
+                accept=".jpg,.jpeg,image/jpeg"
+            >
+
+            <div id="fileInfo" class="info" style="display:none;"></div>
+        </div>
+    </div>
+
+
+    <!-- Resize Settings -->
+    <div class="card">
+
+        <h2>⚙️ फोटो Resize Settings</h2>
+
+        <div class="grid">
+
+            <div class="field">
+                <label>Width</label>
+                <input
+                    type="number"
+                    id="width"
+                    min="1"
+                    value="600"
+                >
+            </div>
+
+            <div class="field">
+                <label>Height</label>
+                <input
+                    type="number"
+                    id="height"
+                    min="1"
+                    value="600"
+                >
+            </div>
+
+        </div>
+
+
+        <div class="grid">
+
+            <div class="field">
+                <label>Unit</label>
+
+                <select id="unit">
+                    <option value="px">Pixels (PX)</option>
+                    <option value="mm">Millimeter (MM)</option>
+                    <option value="inch">Inch</option>
+                </select>
+            </div>
+
+            <div class="field">
+                <label>DPI</label>
+
+                <input
+                    type="number"
+                    id="dpi"
+                    value="300"
+                    min="72"
+                    max="1200"
+                >
+            </div>
+
+        </div>
+
+
+        <div class="checkbox">
+            <input
+                type="checkbox"
+                id="lockRatio"
+                checked
+            >
+
+            <label for="lockRatio">
+                🔒 Ratio Lock
+            </label>
+        </div>
+
+
+        <div class="field">
+
+            <label>JPG Quality</label>
+
+            <input
+                type="range"
+                id="quality"
+                min="0.1"
+                max="1"
+                step="0.05"
+                value="0.95"
+            >
+
+            <span id="qualityValue">95%</span>
+
+        </div>
+
+
+        <div id="pixelInfo" class="info">
+            Output: 600 × 600 px
+        </div>
+
+
+        <div class="buttons">
+
+            <button
+                class="btn-blue"
+                onclick="resizeImage()"
+            >
+                🔄 Resize Preview
+            </button>
+
+            <button
+                class="btn-green"
+                onclick="downloadJPG()"
+            >
+                ⬇️ Download JPG
+            </button>
+
+            <button
+                class="btn-orange"
+                onclick="printImage()"
+            >
+                🖨️ Print
+            </button>
+
+            <button
+                class="btn-gray"
+                onclick="resetAll()"
+            >
+                ♻️ Reset
+            </button>
+
+        </div>
+
+        <div id="status" class="status"></div>
+
+    </div>
+
+
+    <!-- Preview -->
+    <div class="card">
+
+        <h2>👁️ Preview</h2>
+
+        <div class="preview-area">
+
+            <div id="noPreview" class="original">
+                फोटो निवडल्यानंतर Preview येथे दिसेल.
+            </div>
+
+            <img
+                id="preview"
+                alt="Resized Preview"
+            >
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="footer">
+    <strong>श्री मल्टी सर्व्हिसेस</strong><br>
+    आडगाव, ता. भोकरदन, जि. जालना<br>
+    मो. 7972254110
+</div>
+
+
+<canvas id="canvas" style="display:none;"></canvas>
+
+
+<script>
+
+let originalImage = new Image();
+
+let originalWidth = 0;
+let originalHeight = 0;
+
+let resizedDataURL = "";
+
+let aspectRatio = 1;
+
+
+// ------------------------------------
+// File Select
+// ------------------------------------
+
+document.getElementById("imageInput").addEventListener("change", function(){
+
+    const file = this.files[0];
+
+    if(!file){
+        return;
+    }
+
+    if(!file.type.includes("jpeg")){
+        alert("कृपया JPG / JPEG फोटो निवडा.");
+        this.value = "";
+        return;
+    }
+
+    const reader = new FileReader();
+
+    reader.onload = function(e){
+
+        originalImage.onload = function(){
+
+            originalWidth = originalImage.naturalWidth;
+            originalHeight = originalImage.naturalHeight;
+
+            aspectRatio = originalWidth / originalHeight;
+
+            document.getElementById("width").value = originalWidth;
+            document.getElementById("height").value = originalHeight;
+
+            document.getElementById("fileInfo").style.display = "block";
+
+            document.getElementById("fileInfo").innerHTML =
+                "📐 Original Size: <strong>" +
+                originalWidth +
+                " × " +
+                originalHeight +
+                " px</strong>";
+
+            resizeImage();
+
+        };
+
+        originalImage.src = e.target.result;
+
+    };
+
+    reader.readAsDataURL(file);
+
+});
+
+
+// ------------------------------------
+// Width Change
+// ------------------------------------
+
+document.getElementById("width").addEventListener("input", function(){
+
+    if(document.getElementById("lockRatio").checked){
+
+        let w = parseFloat(this.value);
+
+        if(w > 0){
+
+            let h = w / aspectRatio;
+
+            document.getElementById("height").value =
+                Math.round(h);
+
+        }
+
+    }
+
+    updatePixelInfo();
+
+});
+
+
+// ------------------------------------
+// Height Change
+// ------------------------------------
+
+document.getElementById("height").addEventListener("input", function(){
+
+    if(document.getElementById("lockRatio").checked){
+
+        let h = parseFloat(this.value);
+
+        if(h > 0){
+
+            let w = h * aspectRatio;
+
+            document.getElementById("width").value =
+                Math.round(w);
+
+        }
+
+    }
+
+    updatePixelInfo();
+
+});
+
+
+// ------------------------------------
+// Unit Change
+// ------------------------------------
+
+document.getElementById("unit").addEventListener("change", function(){
+
+    updatePixelInfo();
+
+});
+
+
+// ------------------------------------
+// DPI Change
+// ------------------------------------
+
+document.getElementById("dpi").addEventListener("input", function(){
+
+    updatePixelInfo();
+
+});
+
+
+// ------------------------------------
+// Quality
+// ------------------------------------
+
+document.getElementById("quality").addEventListener("input", function(){
+
+    let value =
+        Math.round(
+            parseFloat(this.value) * 100
+        );
+
+    document.getElementById("qualityValue").innerText =
+        value + "%";
+
+});
+
+
+// ------------------------------------
+// Convert to Pixels
+// ------------------------------------
+
+function getPixelDimensions(){
+
+    let width =
+        parseFloat(
+            document.getElementById("width").value
+        );
+
+    let height =
+        parseFloat(
+            document.getElementById("height").value
+        );
+
+    let unit =
+        document.getElementById("unit").value;
+
+    let dpi =
+        parseFloat(
+            document.getElementById("dpi").value
+        );
+
+    if(unit === "px"){
+
+        return {
+            width: Math.round(width),
+            height: Math.round(height)
+        };
+
+    }
+
+    if(unit === "inch"){
+
+        return {
+            width: Math.round(width * dpi),
+            height: Math.round(height * dpi)
+        };
+
+    }
+
+    if(unit === "mm"){
+
+        return {
+            width: Math.round((width / 25.4) * dpi),
+            height: Math.round((height / 25.4) * dpi)
+        };
+
+    }
+
+}
+
+
+// ------------------------------------
+// Update Pixel Info
+// ------------------------------------
+
+function updatePixelInfo(){
+
+    const size =
+        getPixelDimensions();
+
+    document.getElementById("pixelInfo").innerHTML =
+        "🖼️ Output Pixel Size: <strong>" +
+        size.width +
+        " × " +
+        size.height +
+        " px</strong>";
+
+}
+
+
+// ------------------------------------
+// Resize Image
+// ------------------------------------
+
+function resizeImage(){
+
+    if(!originalImage.src){
+
+        alert("प्रथम JPG फोटो निवडा.");
+
+        return;
+    }
+
+    const size =
+        getPixelDimensions();
+
+    const canvas =
+        document.getElementById("canvas");
+
+    canvas.width = size.width;
+    canvas.height = size.height;
+
+    const ctx =
+        canvas.getContext("2d");
+
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = "high";
+
+    ctx.clearRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
+
+    ctx.drawImage(
+        originalImage,
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
+
+    const quality =
+        parseFloat(
+            document.getElementById("quality").value
+        );
+
+    resizedDataURL =
+        canvas.toDataURL(
+            "image/jpeg",
+            quality
+        );
+
+    const preview =
+        document.getElementById("preview");
+
+    preview.src =
+        resizedDataURL;
+
+    preview.style.display =
+        "block";
+
+    document.getElementById("noPreview").style.display =
+        "none";
+
+    document.getElementById("status").innerHTML =
+        "✅ फोटो Resize झाला — " +
+        size.width +
+        " × " +
+        size.height +
+        " px";
+
+    updatePixelInfo();
+
+}
+
+
+// ------------------------------------
+// Download JPG
+// ------------------------------------
+
+function downloadJPG(){
+
+    if(!resizedDataURL){
+
+        resizeImage();
+
+        if(!resizedDataURL){
+            return;
+        }
+
+    }
+
+    const link =
+        document.createElement("a");
+
+    link.href =
+        resizedDataURL;
+
+    link.download =
+        "shree-multi-services-resized.jpg";
+
+    document.body.appendChild(link);
+
+    link.click();
+
+    document.body.removeChild(link);
+
+}
+
+
+// ------------------------------------
+// Print
+// ------------------------------------
+
+function printImage(){
+
+    if(!resizedDataURL){
+
+        resizeImage();
+
+        if(!resizedDataURL){
+            return;
+        }
+
+    }
+
+    const printWindow =
+        window.open(
+            "",
+            "_blank"
+        );
+
+    printWindow.document.write(`
+
+        <!DOCTYPE html>
+
+        <html>
+
+        <head>
+
+            <title>Print JPG</title>
+
+            <style>
+
+                @page{
+                    margin:0;
+                }
+
+                html,body{
+                    margin:0;
+                    padding:0;
+                    background:white;
+                }
+
+                body{
+                    display:flex;
+                    justify-content:center;
+                    align-items:flex-start;
+                }
+
+                img{
+                    display:block;
+                    max-width:none;
+                }
+
+            </style>
+
+        </head>
+
+        <body>
+
+            <img
+                src="${resizedDataURL}"
+            >
+
+        </body>
+
+        </html>
+
+    `);
+
+    printWindow.document.close();
+
+    printWindow.onload = function(){
+
+        printWindow.focus();
+
+        printWindow.print();
+
+    };
+
+}
+
+
+// ------------------------------------
+// Reset
+// ------------------------------------
+
+function resetAll(){
+
+    document.getElementById("imageInput").value = "";
+
+    document.getElementById("width").value = 600;
+
+    document.getElementById("height").value = 600;
+
+    document.getElementById("unit").value = "px";
+
+    document.getElementById("dpi").value = 300;
+
+    document.getElementById("quality").value = 0.95;
+
+    document.getElementById("qualityValue").innerText =
+        "95%";
+
+    document.getElementById("fileInfo").style.display =
+        "none";
+
+    document.getElementById("preview").style.display =
+        "none";
+
+    document.getElementById("noPreview").style.display =
+        "block";
+
+    document.getElementById("status").innerHTML =
+        "";
+
+    resizedDataURL = "";
+
+    originalImage = new Image();
+
+    updatePixelInfo();
+
+}
+
+
+// Initial
+updatePixelInfo();
+
+</script>
+
+</body>
+</html>
