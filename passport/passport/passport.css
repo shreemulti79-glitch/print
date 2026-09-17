@@ -1,0 +1,34 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f4f7fb;
+}
+
+.editor {
+    width: min(1000px, 94%);
+    margin: 30px auto;
+    background: white;
+    padding: 25px;
+    border-radius: 16px;
+}
+
+.back {
+    text-decoration: none;
+    color: #2563eb;
+}
+
+h1 {
+    margin-top: 25px;
+}
+
+.upload-box {
+    margin-top: 25px;
+    padding: 30px;
+    border: 2px dashed #aaa;
+    text-align: center;
+}
+
+#preview img {
+    max-width: 300px;
+    margin-top: 20px;
+}
