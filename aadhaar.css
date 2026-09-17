@@ -1,0 +1,243 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f1f5f9;
+    color: #111827;
+}
+
+/* TOP BAR */
+
+.topbar {
+    background: linear-gradient(135deg, #2563eb, #6d28d9);
+    color: white;
+    padding: 18px 25px;
+
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.back-btn {
+    color: white;
+    text-decoration: none;
+
+    background: rgba(255,255,255,0.15);
+
+    padding: 10px 15px;
+    border-radius: 8px;
+}
+
+.title {
+    flex: 1;
+    text-align: center;
+}
+
+.title h1 {
+    margin: 0 0 5px;
+    font-size: 28px;
+}
+
+.title p {
+    margin: 0;
+    opacity: 0.9;
+}
+
+
+/* MAIN CONTAINER */
+
+.container {
+    width: 95%;
+    max-width: 1250px;
+
+    margin: 25px auto;
+
+    display: grid;
+    grid-template-columns: 310px 1fr;
+
+    gap: 25px;
+}
+
+
+/* CONTROLS */
+
+.controls {
+    background: white;
+
+    padding: 22px;
+
+    border-radius: 16px;
+
+    box-shadow:
+        0 5px 20px rgba(0,0,0,0.08);
+
+    height: fit-content;
+}
+
+.controls h2 {
+    margin-top: 0;
+}
+
+.controls h3 {
+    margin-top: 22px;
+    margin-bottom: 10px;
+}
+
+
+/* UPLOAD BOX */
+
+.upload-box {
+    border: 1px solid #d1d5db;
+
+    border-radius: 10px;
+
+    padding: 15px;
+
+    margin-top: 15px;
+
+    background: #f8fafc;
+}
+
+.upload-box label {
+    display: block;
+
+    font-weight: bold;
+
+    margin-bottom: 10px;
+}
+
+.upload-box input {
+    width: 100%;
+}
+
+
+/* SELECT */
+
+select {
+    width: 100%;
+
+    padding: 11px;
+
+    border: 1px solid #d1d5db;
+
+    border-radius: 8px;
+
+    background: white;
+
+    font-size: 14px;
+}
+
+
+/* BUTTONS */
+
+button {
+    width: 100%;
+
+    padding: 13px;
+
+    margin-top: 12px;
+
+    border: none;
+
+    border-radius: 9px;
+
+    color: white;
+
+    font-size: 15px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+.primary {
+    background: #2563eb;
+}
+
+.success {
+    background: #16a34a;
+}
+
+.print {
+    background: #7c3aed;
+}
+
+
+/* PREVIEW */
+
+.preview {
+    background: white;
+
+    padding: 22px;
+
+    border-radius: 16px;
+
+    box-shadow:
+        0 5px 20px rgba(0,0,0,0.08);
+}
+
+.preview h2 {
+    margin-top: 0;
+}
+
+
+/* PAPER AREA */
+
+.paper {
+    background: #e5e7eb;
+
+    padding: 25px;
+
+    border-radius: 12px;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    overflow: auto;
+}
+
+
+/* 4×6 CANVAS */
+
+#canvas {
+    width: 400px;
+    height: 600px;
+
+    background: white;
+
+    display: block;
+
+    box-shadow:
+        0 8px 25px rgba(0,0,0,0.25);
+}
+
+
+/* MOBILE */
+
+@media (max-width: 850px) {
+
+    .topbar {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .container {
+        grid-template-columns: 1fr;
+    }
+
+    #canvas {
+        width: 300px;
+        height: 450px;
+    }
+
+}
