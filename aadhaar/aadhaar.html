@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="mr">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>Aadhaar 4×6 Print</title>
+
+    <link
+        rel="stylesheet"
+        href="aadhaar.css">
+
+</head>
+
+
+<body>
+
+
+<header class="topbar">
+
+    <a
+        href="../index.html"
+        class="back-btn">
+
+        ← मुख्य Menu
+
+    </a>
+
+
+    <div class="title">
+
+        <h1>🪪 Aadhaar Card</h1>
+
+        <p>
+            Aadhaar Front + Back → 4×6 Print
+        </p>
+
+    </div>
+
+</header>
+
+
+
+<main class="container">
+
+
+    <!-- LEFT PANEL -->
+
+    <section class="controls">
+
+        <h2>Upload Documents</h2>
+
+
+        <div class="upload-box">
+
+            <label>
+                Aadhaar Front
+            </label>
+
+            <input
+                type="file"
+                id="frontInput"
+                accept="image/*">
+
+        </div>
+
+
+        <div class="upload-box">
+
+            <label>
+                Aadhaar Back
+            </label>
+
+            <input
+                type="file"
+                id="backInput"
+                accept="image/*">
+
+        </div>
+
+
+        <hr>
+
+
+        <h3>Layout</h3>
+
+
+        <select id="layoutSelect">
+
+            <option value="vertical">
+                Front + Back (Vertical)
+            </option>
+
+            <option value="horizontal">
+                Front + Back (Horizontal)
+            </option>
+
+        </select>
+
+
+        <button
+            id="createBtn"
+            class="primary">
+
+            4×6 Layout तयार करा
+
+        </button>
+
+
+        <button
+            id="downloadBtn"
+            class="success">
+
+            JPG Download
+
+        </button>
+
+
+        <button
+            id="printBtn"
+            class="print">
+
+            🖨️ 4×6 Print
+
+        </button>
+
+
+    </section>
+
+
+
+    <!-- PREVIEW -->
+
+    <section class="preview">
+
+
+        <h2>
+            4×6 Print Preview
+        </h2>
+
+
+        <div class="paper">
+
+            <canvas
+                id="canvas"
+                width="1200"
+                height="1800">
+            </canvas>
+
+        </div>
+
+
+    </section>
+
+
+</main>
+
+
+
+<script src="aadhaar.js"></script>
+
+
+</body>
+
+</html>
