@@ -2,9 +2,9 @@
 <html lang="mr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-<title>Aadhaar 4×6 Print Tool</title>
+<title>Aadhaar 4x6 Print</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -16,16 +16,16 @@
 
 body{
     margin:0;
+    background:#eef2f7;
     font-family:Arial,"Noto Sans Devanagari",sans-serif;
-    background:#f1f5f9;
-    color:#111827;
+    color:#172033;
 }
 
 header{
-    background:#173f8a;
-    color:white;
-    padding:18px;
+    background:#174ea6;
+    color:#fff;
     text-align:center;
+    padding:18px;
 }
 
 header h1{
@@ -39,75 +39,53 @@ header p{
 }
 
 .container{
-    max-width:1100px;
-    margin:25px auto;
-    padding:0 15px;
+    width:95%;
+    max-width:1200px;
+    margin:20px auto;
 }
 
 .card{
-    background:white;
+    background:#fff;
     border-radius:12px;
     padding:20px;
     margin-bottom:20px;
-    box-shadow:0 3px 12px rgba(0,0,0,.08);
+    box-shadow:0 3px 15px rgba(0,0,0,.08);
 }
 
 h2{
     margin-top:0;
-    color:#173f8a;
-    font-size:20px;
-}
-
-.row{
-    display:flex;
-    gap:15px;
-    flex-wrap:wrap;
-}
-
-.box{
-    flex:1;
-    min-width:280px;
-}
-
-label{
-    display:block;
-    font-weight:bold;
-    margin-bottom:7px;
+    color:#174ea6;
 }
 
 input[type=file]{
     width:100%;
-    padding:12px;
+    padding:13px;
     border:1px solid #cbd5e1;
     border-radius:8px;
     background:#f8fafc;
 }
 
-select{
-    width:100%;
-    padding:12px;
-    border:1px solid #cbd5e1;
-    border-radius:8px;
-    font-size:15px;
-}
-
 button{
     border:0;
+    padding:12px 18px;
     border-radius:8px;
-    padding:12px 20px;
-    font-size:15px;
-    font-weight:bold;
     cursor:pointer;
+    font-weight:bold;
     margin:5px;
 }
 
-.primary{
-    background:#173f8a;
+.blue{
+    background:#174ea6;
     color:white;
 }
 
 .green{
     background:#16803c;
+    color:white;
+}
+
+.orange{
+    background:#e88900;
     color:white;
 }
 
@@ -121,31 +99,48 @@ button:disabled{
     cursor:not-allowed;
 }
 
-.preview-area{
+.row{
+    display:flex;
+    gap:20px;
+    flex-wrap:wrap;
+}
+
+.col{
+    flex:1;
+    min-width:280px;
+}
+
+select{
+    width:100%;
+    padding:11px;
+    border:1px solid #cbd5e1;
+    border-radius:7px;
+}
+
+.preview{
     text-align:center;
-    margin-top:20px;
+    overflow:auto;
 }
 
-canvas{
+#pdfCanvas{
     max-width:100%;
-    border:2px solid #94a3b8;
-    border-radius:5px;
-    background:white;
+    border:2px solid #64748b;
+    cursor:crosshair;
 }
 
-.crop-info{
+.info{
     background:#eff6ff;
     border-left:4px solid #2563eb;
     padding:12px;
     margin:15px 0;
-    font-size:14px;
+    line-height:1.6;
 }
 
 .status{
+    background:#f8fafc;
     padding:12px;
     border-radius:8px;
-    background:#f8fafc;
-    margin-top:15px;
+    margin-top:12px;
     white-space:pre-line;
 }
 
@@ -155,8 +150,85 @@ canvas{
 }
 
 .warning{
-    background:#fffbeb;
-    color:#92400e;
+    background:#fff7ed;
+    color:#9a3412;
+}
+
+.hidden{
+    display:none;
+}
+
+.preview4x6{
+    display:flex;
+    gap:25px;
+    flex-wrap:wrap;
+    justify-content:center;
+    margin-top:20px;
+}
+
+.paper{
+    width:400px;
+    height:600px;
+    background:white;
+    border:2px solid #475569;
+    position:relative;
+    box-shadow:0 5px 20px rgba(0,0,0,.15);
+}
+
+.paper img{
+    position:absolute;
+    width:337.008px;
+    height:212.520px;
+    left:31.496px;
+    top:193.740px;
+    object-fit:fill;
+}
+
+.paper-title{
+    position:absolute;
+    top:10px;
+    left:0;
+    right:0;
+    text-align:center;
+    font-weight:bold;
+    color:#64748b;
+    font-size:13px;
+}
+
+.measure{
+    font-size:13px;
+    color:#64748b;
+}
+
+.passwordBox{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.65);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    z-index:9999;
+}
+
+.passwordInner{
+    width:90%;
+    max-width:400px;
+    background:#fff;
+    padding:25px;
+    border-radius:12px;
+}
+
+.passwordInner h3{
+    margin-top:0;
+    color:#174ea6;
+}
+
+.passwordInner input{
+    width:100%;
+    padding:12px;
+    margin:10px 0;
+    border:1px solid #cbd5e1;
+    border-radius:7px;
 }
 
 footer{
@@ -165,156 +237,337 @@ footer{
     color:#64748b;
     font-size:13px;
 }
-
-.hidden{
-    display:none;
-}
-
-.small{
-    font-size:13px;
-    color:#64748b;
-}
 </style>
 </head>
 
 <body>
 
 <header>
-    <h1>आधार कार्ड 4×6 Print Tool</h1>
-    <p>Front + Back • Actual Card Size • Print Ready PDF</p>
+<h1>आधार कार्ड 4×6 Print Tool</h1>
+<p>PDF → Crop → Aadhaar Size → 4×6 Print</p>
 </header>
 
 <div class="container">
 
-<div class="card">
-    <h2>1. Aadhaar PDF निवडा</h2>
-
-    <input type="file"
-           id="pdfFile"
-           accept="application/pdf">
-
-    <div class="crop-info">
-        <b>महत्त्वाचे:</b><br>
-        तुमची Aadhaar PDF या tool मध्येच browser मध्ये process होईल.
-        कोणत्याही server वर PDF upload केली जाणार नाही.
-    </div>
-
-    <div id="pageControls" class="hidden">
-
-        <div class="row">
-
-            <div class="box">
-                <label>Front Side Page</label>
-                <select id="frontPage"></select>
-            </div>
-
-            <div class="box">
-                <label>Back Side Page</label>
-                <select id="backPage"></select>
-            </div>
-
-        </div>
-
-        <br>
-
-        <button class="primary" onclick="loadFront()">
-            Front Side उघडा
-        </button>
-
-        <button class="primary" onclick="loadBack()">
-            Back Side उघडा
-        </button>
-
-    </div>
-</div>
-
-
-<div class="card hidden" id="cropCard">
-
-    <h2 id="cropTitle">Crop करा</h2>
-
-    <div class="crop-info">
-        <b>Crop कसे करायचे?</b><br>
-        खालील PDF preview वर mouse ने Aadhaar च्या पूर्ण Front/Back भागाभोवती
-        rectangle काढा.
-        <br><br>
-        Crop नंतर कार्डचा आकार PDF मध्ये आपोआप
-        <b>85.60 × 53.98 mm</b> केला जाईल.
-    </div>
-
-    <div class="preview-area">
-
-        <canvas id="pdfCanvas"></canvas>
-
-        <br><br>
-
-        <button class="green" onclick="saveCurrentCrop()">
-            हा Crop Save करा
-        </button>
-
-        <button class="gray" onclick="clearCrop()">
-            Crop Reset
-        </button>
-
-    </div>
-
-    <div id="cropStatus" class="status">
-        PDF page तयार आहे. आता mouse ने crop area निवडा.
-    </div>
-
-</div>
-
+<!-- STEP 1 -->
 
 <div class="card">
 
-    <h2>2. तयार स्थिती</h2>
+<h2>1. Aadhaar PDF Select करा</h2>
 
-    <div class="row">
+<input
+    type="file"
+    id="pdfFile"
+    accept="application/pdf">
 
-        <div class="box">
-            <b>Front:</b>
-            <span id="frontStatus">निवडलेले नाही</span>
-        </div>
+<div class="info">
+PDF ला Password असेल तर Password विचारला जाईल.
+Password टाकल्यानंतर PDF browser मध्येच उघडेल.
+</div>
 
-        <div class="box">
-            <b>Back:</b>
-            <span id="backStatus">निवडलेले नाही</span>
-        </div>
+<div id="pdfInfo" class="status">
+PDF Select केलेली नाही.
+</div>
 
-    </div>
+</div>
 
-    <br>
 
-    <div class="crop-info">
-        <b>Card Size:</b> 85.60 × 53.98 mm
-        <br>
-        <b>Paper Size:</b> 4 × 6 inch
-        <br>
-        <b>PDF:</b> Front Page + Back Page
-        <br>
-        <b>Position:</b> दोन्ही pages वर समान
-    </div>
+<!-- STEP 2 -->
 
-    <button
-        id="downloadBtn"
-        class="green"
-        disabled
-        onclick="createPDF()">
+<div
+    class="card hidden"
+    id="pageCard">
 
-        4×6 Print PDF तयार करा
-    </button>
+<h2>2. Front / Back Page निवडा</h2>
 
-    <div id="downloadStatus" class="status">
-        Front आणि Back दोन्ही crop झाल्यावर Download button सुरू होईल.
-    </div>
+<div class="row">
+
+<div class="col">
+
+<label>Front Side</label>
+
+<select id="frontPage"></select>
+
+<button
+    class="blue"
+    onclick="openFront()">
+
+Front PDF उघडा
+
+</button>
+
+</div>
+
+
+<div class="col">
+
+<label>Back Side</label>
+
+<select id="backPage"></select>
+
+<button
+    class="blue"
+    onclick="openBack()">
+
+Back PDF उघडा
+
+</button>
 
 </div>
 
 </div>
+
+</div>
+
+
+<!-- STEP 3 -->
+
+<div
+    class="card hidden"
+    id="cropCard">
+
+<h2 id="cropHeading">
+Aadhaar Crop
+</h2>
+
+<div class="info">
+
+<b>कसे करायचे?</b><br>
+
+PDF खाली दिसेल.
+Aadhaar च्या पूर्ण भागाभोवती mouse ने drag करा.
+Crop केल्यानंतर तो Aadhaar card-size मध्ये तयार होईल.
+
+<br><br>
+
+<b>Card Size:</b>
+85.60 × 53.98 mm
+
+</div>
+
+<div class="preview">
+
+<canvas id="pdfCanvas"></canvas>
+
+<br>
+
+<button
+    class="green"
+    onclick="saveCrop()">
+
+Crop करून Aadhaar मध्ये Paste करा
+
+</button>
+
+<button
+    class="gray"
+    onclick="resetCrop()">
+
+Reset
+
+</button>
+
+</div>
+
+<div
+    id="cropStatus"
+    class="status">
+
+PDF वर Aadhaar चा भाग select करा.
+
+</div>
+
+</div>
+
+
+<!-- STEP 4 -->
+
+<div class="card">
+
+<h2>3. Aadhaar तयार स्थिती</h2>
+
+<div class="row">
+
+<div class="col">
+
+<b>Front:</b>
+
+<span id="frontStatus">
+❌ तयार नाही
+</span>
+
+</div>
+
+<div class="col">
+
+<b>Back:</b>
+
+<span id="backStatus">
+❌ तयार नाही
+</span>
+
+</div>
+
+</div>
+
+<br>
+
+<div class="info">
+
+<b>Aadhaar Card:</b>
+85.60 × 53.98 mm
+
+<br>
+
+<b>Paper:</b>
+4 × 6 inch
+
+<br>
+
+<b>Position:</b>
+Front आणि Back समान
+
+</div>
+
+</div>
+
+
+<!-- STEP 5 -->
+
+<div
+    class="card hidden"
+    id="previewCard">
+
+<h2>4. 4×6 Print Preview</h2>
+
+<div class="info">
+
+हा फक्त preview आहे.
+Actual print मध्ये Aadhaar card size
+85.60 × 53.98 mm ठेवली आहे.
+
+</div>
+
+<div class="preview4x6">
+
+<div>
+
+<div class="paper">
+
+<div class="paper-title">
+FRONT SIDE
+</div>
+
+<img
+    id="frontPreview">
+
+</div>
+
+</div>
+
+
+<div>
+
+<div class="paper">
+
+<div class="paper-title">
+BACK SIDE
+</div>
+
+<img
+    id="backPreview">
+
+</div>
+
+</div>
+
+</div>
+
+<br>
+
+<center>
+
+<button
+    class="green"
+    onclick="downloadPDF()">
+
+4×6 PDF Download करा
+
+</button>
+
+<button
+    class="orange"
+    onclick="printAadhaar()">
+
+🖨 Print करा
+
+</button>
+
+</center>
+
+<div
+    id="finalStatus"
+    class="status">
+
+Front आणि Back तयार झाल्यावर Print करा.
+
+</div>
+
+</div>
+
+</div>
+
 
 <footer>
-    Aadhaar 4×6 Print Tool
+Aadhaar 4×6 Print Tool
 </footer>
+
+
+<!-- PASSWORD BOX -->
+
+<div
+    id="passwordBox"
+    class="passwordBox hidden">
+
+<div class="passwordInner">
+
+<h3>PDF Password</h3>
+
+<p>
+ही PDF Password Protected आहे.
+Password टाका.
+</p>
+
+<input
+    type="password"
+    id="pdfPassword"
+    placeholder="PDF Password">
+
+<button
+    class="blue"
+    onclick="submitPassword()">
+
+PDF उघडा
+
+</button>
+
+<button
+    class="gray"
+    onclick="cancelPassword()">
+
+Cancel
+
+</button>
+
+<div
+    id="passwordError"
+    class="status hidden">
+
+</div>
+
+</div>
+
+</div>
 
 
 <script>
@@ -323,137 +576,571 @@ pdfjsLib.GlobalWorkerOptions.workerSrc =
 "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
 
 
-let pdfDocument = null;
-let currentPageNumber = 1;
+let pdfDoc = null;
+
+let pdfData = null;
+
+let currentPage = 1;
+
 let currentSide = "";
 
 let frontImage = null;
+
 let backImage = null;
 
-let canvas = document.getElementById("pdfCanvas");
-let ctx = canvas.getContext("2d");
+let passwordResolver = null;
 
-let cropStartX = 0;
-let cropStartY = 0;
-let cropEndX = 0;
-let cropEndY = 0;
+let canvas =
+document.getElementById("pdfCanvas");
 
-let isDragging = false;
-let cropSelected = false;
+let ctx =
+canvas.getContext("2d");
 
-let renderedScale = 1;
+let scale = 1;
 
-const pdfFile = document.getElementById("pdfFile");
+let startX = 0;
 
-pdfFile.addEventListener("change", async function(){
+let startY = 0;
 
-    const file = this.files[0];
+let endX = 0;
+
+let endY = 0;
+
+let dragging = false;
+
+let cropReady = false;
+
+
+/* --------------------------------
+   PDF SELECT
+-------------------------------- */
+
+document
+.getElementById("pdfFile")
+.addEventListener(
+"change",
+function(){
+
+    let file = this.files[0];
 
     if(!file){
         return;
     }
 
     if(file.type !== "application/pdf"){
-        alert("कृपया फक्त PDF निवडा.");
+
+        alert(
+        "कृपया PDF File Select करा."
+        );
+
         return;
     }
 
-    try{
+    let reader =
+    new FileReader();
 
-        const arrayBuffer = await file.arrayBuffer();
+    reader.onload =
+    function(){
 
-        pdfDocument = await pdfjsLib.getDocument({
-            data: arrayBuffer
-        }).promise;
-
-        const frontSelect =
-            document.getElementById("frontPage");
-
-        const backSelect =
-            document.getElementById("backPage");
-
-        frontSelect.innerHTML = "";
-        backSelect.innerHTML = "";
-
-        for(let i=1;i<=pdfDocument.numPages;i++){
-
-            const option1 =
-                document.createElement("option");
-
-            option1.value = i;
-            option1.textContent =
-                "Page " + i;
-
-            frontSelect.appendChild(option1);
-
-            const option2 =
-                document.createElement("option");
-
-            option2.value = i;
-            option2.textContent =
-                "Page " + i;
-
-            backSelect.appendChild(option2);
-        }
-
-        if(pdfDocument.numPages >= 2){
-            backSelect.value = 2;
-        }
-
-        document
-        .getElementById("pageControls")
-        .classList.remove("hidden");
-
-        setStatus(
-            "downloadStatus",
-            "PDF तयार आहे. Front आणि Back Page निवडा."
+        pdfData =
+        new Uint8Array(
+            reader.result
         );
 
-    }catch(error){
+        loadPDF(pdfData);
+
+    };
+
+    reader.readAsArrayBuffer(file);
+
+});
+
+
+/* --------------------------------
+   LOAD PDF WITH PASSWORD
+-------------------------------- */
+
+function loadPDF(data){
+
+    document
+    .getElementById("pdfInfo")
+    .textContent =
+    "PDF उघडत आहे...";
+
+    pdfjsLib
+    .getDocument({
+
+        data:data,
+
+        password:function(
+            callback,
+            reason
+        ){
+
+            showPassword(
+                callback,
+                reason
+            );
+
+        }
+
+    })
+    .promise
+    .then(function(pdf){
+
+        pdfDoc = pdf;
+
+        let front =
+        document.getElementById(
+            "frontPage"
+        );
+
+        let back =
+        document.getElementById(
+            "backPage"
+        );
+
+        front.innerHTML = "";
+
+        back.innerHTML = "";
+
+        for(
+            let i=1;
+            i<=pdf.numPages;
+            i++
+        ){
+
+            let o1 =
+            document.createElement(
+                "option"
+            );
+
+            o1.value=i;
+
+            o1.textContent=
+            "Page "+i;
+
+            front.appendChild(o1);
+
+
+            let o2 =
+            document.createElement(
+                "option"
+            );
+
+            o2.value=i;
+
+            o2.textContent=
+            "Page "+i;
+
+            back.appendChild(o2);
+        }
+
+
+        if(pdf.numPages>=2){
+
+            back.value=2;
+
+        }
+
+
+        document
+        .getElementById(
+            "pageCard"
+        )
+        .classList.remove(
+            "hidden"
+        );
+
+
+        document
+        .getElementById(
+            "pdfInfo"
+        )
+        .textContent =
+        "✓ PDF उघडली आहे. Pages: "
+        +pdf.numPages;
+
+    })
+    .catch(function(error){
 
         console.error(error);
 
+        document
+        .getElementById(
+            "pdfInfo"
+        )
+        .textContent =
+        "❌ PDF उघडता आली नाही.";
+
         alert(
-            "PDF उघडताना समस्या आली.\n" +
-            "कृपया योग्य Aadhaar PDF निवडा."
+        "PDF उघडताना समस्या आली.\n"+
+        "Password चुकीचा असू शकतो."
         );
+
+    });
+
+}
+
+
+/* --------------------------------
+   PASSWORD
+-------------------------------- */
+
+function showPassword(
+callback,
+reason
+){
+
+    passwordResolver =
+    callback;
+
+    document
+    .getElementById(
+        "passwordBox"
+    )
+    .classList.remove(
+        "hidden"
+    );
+
+    document
+    .getElementById(
+        "pdfPassword"
+    )
+    .value="";
+
+    document
+    .getElementById(
+        "pdfPassword"
+    )
+    .focus();
+
+}
+
+
+function submitPassword(){
+
+    let password =
+    document
+    .getElementById(
+        "pdfPassword"
+    )
+    .value;
+
+    if(!password){
+
+        alert(
+        "Password टाका."
+        );
+
+        return;
+    }
+
+    if(passwordResolver){
+
+        passwordResolver(
+            password
+        );
+
+        passwordResolver=null;
+
+    }
+
+    document
+    .getElementById(
+        "passwordBox"
+    )
+    .classList.add(
+        "hidden"
+    );
+
+}
+
+
+function cancelPassword(){
+
+    passwordResolver=null;
+
+    document
+    .getElementById(
+        "passwordBox"
+    )
+    .classList.add(
+        "hidden"
+    );
+
+}
+
+
+/* --------------------------------
+   OPEN FRONT
+-------------------------------- */
+
+async function openFront(){
+
+    currentSide="front";
+
+    currentPage =
+    parseInt(
+        document
+        .getElementById(
+            "frontPage"
+        )
+        .value
+    );
+
+    document
+    .getElementById(
+        "cropCard"
+    )
+    .classList.remove(
+        "hidden"
+    );
+
+    document
+    .getElementById(
+        "cropHeading"
+    )
+    .textContent =
+    "Front Side - Aadhaar Crop";
+
+    await renderPage();
+
+}
+
+
+/* --------------------------------
+   OPEN BACK
+-------------------------------- */
+
+async function openBack(){
+
+    currentSide="back";
+
+    currentPage =
+    parseInt(
+        document
+        .getElementById(
+            "backPage"
+        )
+        .value
+    );
+
+    document
+    .getElementById(
+        "cropCard"
+    )
+    .classList.remove(
+        "hidden"
+    );
+
+    document
+    .getElementById(
+        "cropHeading"
+    )
+    .textContent =
+    "Back Side - Aadhaar Crop";
+
+    await renderPage();
+
+}
+
+
+/* --------------------------------
+   RENDER PDF PAGE
+-------------------------------- */
+
+async function renderPage(){
+
+    let page =
+    await pdfDoc.getPage(
+        currentPage
+    );
+
+    let base =
+    page.getViewport({
+        scale:1
+    });
+
+
+    let maxWidth=1000;
+
+    scale =
+    Math.min(
+        2,
+        maxWidth/base.width
+    );
+
+
+    let viewport =
+    page.getViewport({
+        scale:scale
+    });
+
+
+    canvas.width =
+    Math.round(
+        viewport.width
+    );
+
+    canvas.height =
+    Math.round(
+        viewport.height
+    );
+
+
+    await page.render({
+
+        canvasContext:ctx,
+
+        viewport:viewport
+
+    }).promise;
+
+
+    resetCropOnly();
+
+}
+
+
+/* --------------------------------
+   MOUSE CROP
+-------------------------------- */
+
+canvas.addEventListener(
+"mousedown",
+function(e){
+
+    let rect =
+    canvas.getBoundingClientRect();
+
+    startX =
+    (e.clientX-rect.left)
+    *
+    (canvas.width/rect.width);
+
+    startY =
+    (e.clientY-rect.top)
+    *
+    (canvas.height/rect.height);
+
+    endX=startX;
+
+    endY=startY;
+
+    dragging=true;
+
+});
+
+
+canvas.addEventListener(
+"mousemove",
+function(e){
+
+    if(!dragging){
+        return;
+    }
+
+    let rect =
+    canvas.getBoundingClientRect();
+
+    endX =
+    (e.clientX-rect.left)
+    *
+    (canvas.width/rect.width);
+
+    endY =
+    (e.clientY-rect.top)
+    *
+    (canvas.height/rect.height);
+
+
+    drawSelection();
+
+});
+
+
+canvas.addEventListener(
+"mouseup",
+function(){
+
+    dragging=false;
+
+    let w =
+    Math.abs(
+        endX-startX
+    );
+
+    let h =
+    Math.abs(
+        endY-startY
+    );
+
+    if(
+        w>30 &&
+        h>30
+    ){
+
+        cropReady=true;
+
+        document
+        .getElementById(
+            "cropStatus"
+        )
+        .textContent =
+        "✓ Crop निवडला आहे.\n"+
+        "आता 'Crop करून Aadhaar मध्ये Paste करा' क्लिक करा.";
+
     }
 
 });
 
 
-async function renderPage(pageNumber){
+function drawSelection(){
 
-    if(!pdfDocument){
+    /* PDF पुन्हा render */
+
+    renderSelectionBackground();
+
+}
+
+
+async function renderSelectionBackground(){
+
+    if(!pdfDoc){
         return;
     }
 
-    const page =
-        await pdfDocument.getPage(pageNumber);
+    let page =
+    await pdfDoc.getPage(
+        currentPage
+    );
 
-    const baseViewport =
-        page.getViewport({
-            scale:1
-        });
+    let viewport =
+    page.getViewport({
+        scale:scale
+    });
 
-    const maxWidth = 900;
+    let temp =
+    document.createElement(
+        "canvas"
+    );
 
-    renderedScale =
-        Math.min(
-            2,
-            maxWidth / baseViewport.width
-        );
+    temp.width=canvas.width;
 
-    const viewport =
-        page.getViewport({
-            scale:renderedScale
-        });
+    temp.height=canvas.height;
 
-    canvas.width =
-        Math.floor(viewport.width);
+    let tctx =
+    temp.getContext("2d");
 
-    canvas.height =
-        Math.floor(viewport.height);
+    await page.render({
+
+        canvasContext:tctx,
+
+        viewport:viewport
+
+    }).promise;
+
 
     ctx.clearRect(
         0,
@@ -462,641 +1149,529 @@ async function renderPage(pageNumber){
         canvas.height
     );
 
-    await page.render({
-        canvasContext:ctx,
-        viewport:viewport
-    }).promise;
-
-    cropSelected = false;
-
-    drawCropRectangle();
-}
-
-
-async function loadFront(){
-
-    currentSide = "front";
-
-    currentPageNumber =
-        parseInt(
-            document.getElementById("frontPage").value
-        );
-
-    document
-    .getElementById("cropCard")
-    .classList.remove("hidden");
-
-    document
-    .getElementById("cropTitle")
-    .textContent =
-        "Front Side Crop करा";
-
-    await renderPage(currentPageNumber);
-
-    setStatus(
-        "cropStatus",
-        "Front Side वर Aadhaar चा पूर्ण भाग select करा."
-    );
-}
-
-
-async function loadBack(){
-
-    currentSide = "back";
-
-    currentPageNumber =
-        parseInt(
-            document.getElementById("backPage").value
-        );
-
-    document
-    .getElementById("cropCard")
-    .classList.remove("hidden");
-
-    document
-    .getElementById("cropTitle")
-    .textContent =
-        "Back Side Crop करा";
-
-    await renderPage(currentPageNumber);
-
-    setStatus(
-        "cropStatus",
-        "Back Side वर Aadhaar चा पूर्ण भाग select करा."
-    );
-}
-
-
-/* -------------------------------
-   MOUSE CROP
--------------------------------- */
-
-canvas.addEventListener(
-    "mousedown",
-    function(e){
-
-        const rect =
-            canvas.getBoundingClientRect();
-
-        cropStartX =
-            (e.clientX - rect.left)
-            * (canvas.width / rect.width);
-
-        cropStartY =
-            (e.clientY - rect.top)
-            * (canvas.height / rect.height);
-
-        cropEndX =
-            cropStartX;
-
-        cropEndY =
-            cropStartY;
-
-        isDragging = true;
-        cropSelected = false;
-
-        drawCropRectangle();
-    }
-);
-
-
-canvas.addEventListener(
-    "mousemove",
-    function(e){
-
-        if(!isDragging){
-            return;
-        }
-
-        const rect =
-            canvas.getBoundingClientRect();
-
-        cropEndX =
-            (e.clientX - rect.left)
-            * (canvas.width / rect.width);
-
-        cropEndY =
-            (e.clientY - rect.top)
-            * (canvas.height / rect.height);
-
-        drawCropRectangle();
-    }
-);
-
-
-canvas.addEventListener(
-    "mouseup",
-    function(){
-
-        isDragging = false;
-
-        const width =
-            Math.abs(cropEndX - cropStartX);
-
-        const height =
-            Math.abs(cropEndY - cropStartY);
-
-        if(width > 20 && height > 20){
-            cropSelected = true;
-
-            setStatus(
-                "cropStatus",
-                "Crop area निवडला आहे. आता 'हा Crop Save करा' वर क्लिक करा."
-            );
-        }
-    }
-);
-
-
-canvas.addEventListener(
-    "mouseleave",
-    function(){
-
-        if(isDragging){
-            isDragging = false;
-        }
-    }
-);
-
-
-function drawCropRectangle(){
-
-    /* Page पुन्हा render करण्यापेक्षा
-       original canvas वर rectangle दाखवण्यासाठी
-       image copy वापरणे योग्य आहे.
-
-       त्यामुळे येथे render न करता
-       current canvas ची temporary copy वापरतो.
-    */
-
-    if(!pdfDocument){
-        return;
-    }
-
-    renderPageWithoutReset();
-}
-
-
-let originalCanvasImage = null;
-
-
-async function renderPageWithoutReset(){
-
-    if(!pdfDocument){
-        return;
-    }
-
-    const page =
-        await pdfDocument.getPage(currentPageNumber);
-
-    const viewport =
-        page.getViewport({
-            scale:renderedScale
-        });
-
-    const temp =
-        document.createElement("canvas");
-
-    temp.width = canvas.width;
-    temp.height = canvas.height;
-
-    const tempCtx =
-        temp.getContext("2d");
-
-    await page.render({
-        canvasContext:tempCtx,
-        viewport:viewport
-    }).promise;
-
-    ctx.clearRect(
+    ctx.drawImage(
+        temp,
         0,
-        0,
-        canvas.width,
-        canvas.height
+        0
     );
 
-    ctx.drawImage(temp,0,0);
-
-    if(
-        isDragging ||
-        cropSelected ||
-        (
-            cropStartX !== cropEndX &&
-            cropStartY !== cropEndY
-        )
-    ){
-
-        const x =
-            Math.min(cropStartX,cropEndX);
-
-        const y =
-            Math.min(cropStartY,cropEndY);
-
-        const w =
-            Math.abs(cropEndX-cropStartX);
-
-        const h =
-            Math.abs(cropEndY-cropStartY);
-
-        ctx.save();
-
-        ctx.fillStyle =
-            "rgba(0,0,0,0.35)";
-
-        ctx.fillRect(
-            0,
-            0,
-            canvas.width,
-            canvas.height
-        );
-
-        ctx.clearRect(
-            x,
-            y,
-            w,
-            h
-        );
-
-        ctx.drawImage(
-            temp,
-            x,
-            y,
-            w,
-            h,
-            x,
-            y,
-            w,
-            h
-        );
-
-        ctx.strokeStyle =
-            "#ff0000";
-
-        ctx.lineWidth = 3;
-
-        ctx.strokeRect(
-            x,
-            y,
-            w,
-            h
-        );
-
-        ctx.restore();
-    }
-}
-
-
-function clearCrop(){
-
-    cropStartX = 0;
-    cropStartY = 0;
-    cropEndX = 0;
-    cropEndY = 0;
-
-    cropSelected = false;
-
-    renderPage(currentPageNumber);
-
-    setStatus(
-        "cropStatus",
-        "Crop reset झाला."
-    );
-}
-
-
-/* -------------------------------
-   SAVE CROP
--------------------------------- */
-
-async function saveCurrentCrop(){
-
-    if(!cropSelected){
-
-        alert(
-            "आधी Aadhaar चा भाग crop करा."
-        );
-
-        return;
-    }
 
     let x =
-        Math.min(cropStartX,cropEndX);
+    Math.min(
+        startX,
+        endX
+    );
 
     let y =
-        Math.min(cropStartY,cropEndY);
+    Math.min(
+        startY,
+        endY
+    );
 
     let w =
-        Math.abs(cropEndX-cropStartX);
+    Math.abs(
+        endX-startX
+    );
 
     let h =
-        Math.abs(cropEndY-cropStartY);
+    Math.abs(
+        endY-startY
+    );
 
 
-    if(w < 20 || h < 20){
-
-        alert(
-            "Crop area खूप लहान आहे."
-        );
-
+    if(w<1 || h<1){
         return;
     }
 
 
-    /* Original PDF page पुन्हा render */
+    ctx.save();
 
-    const page =
-        await pdfDocument.getPage(
-            currentPageNumber
-        );
+    ctx.fillStyle =
+    "rgba(0,0,0,.45)";
 
-    const viewport =
-        page.getViewport({
-            scale:renderedScale
-        });
-
-    const sourceCanvas =
-        document.createElement("canvas");
-
-    sourceCanvas.width =
-        viewport.width;
-
-    sourceCanvas.height =
-        viewport.height;
-
-    const sourceCtx =
-        sourceCanvas.getContext("2d");
-
-    await page.render({
-        canvasContext:sourceCtx,
-        viewport:viewport
-    }).promise;
+    ctx.fillRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
 
 
-    const croppedCanvas =
-        document.createElement("canvas");
-
-    croppedCanvas.width =
-        Math.round(w);
-
-    croppedCanvas.height =
-        Math.round(h);
-
-    const cropCtx =
-        croppedCanvas.getContext("2d");
-
-    cropCtx.drawImage(
-        sourceCanvas,
+    ctx.clearRect(
         x,
         y,
-        w,
-        h,
-        0,
-        0,
         w,
         h
     );
 
 
-    /* Aadhaar card ratio:
-       85.60 / 53.98
-       = approximately 1.586
-    */
-
-    const targetRatio =
-        85.60 / 53.98;
-
-    const cropRatio =
-        w / h;
-
-
-    /* थोडा ratio difference असेल
-       तर center crop करून card ratio
-       कायम ठेवतो.
-    */
-
-    let finalCanvas =
-        croppedCanvas;
-
-    if(
-        Math.abs(
-            cropRatio-targetRatio
-        ) > 0.02
-    ){
-
-        let newW = w;
-        let newH = h;
-
-        if(cropRatio > targetRatio){
-
-            newW =
-                h * targetRatio;
-
-        }else{
-
-            newH =
-                w / targetRatio;
-        }
-
-        const sx =
-            (w-newW)/2;
-
-        const sy =
-            (h-newH)/2;
-
-        finalCanvas =
-            document.createElement("canvas");
-
-        finalCanvas.width =
-            Math.round(newW);
-
-        finalCanvas.height =
-            Math.round(newH);
-
-        const finalCtx =
-            finalCanvas.getContext("2d");
-
-        finalCtx.drawImage(
-            croppedCanvas,
-            sx,
-            sy,
-            newW,
-            newH,
-            0,
-            0,
-            newW,
-            newH
-        );
-    }
+    ctx.drawImage(
+        temp,
+        x,
+        y,
+        w,
+        h,
+        x,
+        y,
+        w,
+        h
+    );
 
 
-    const imageData =
-        finalCanvas.toDataURL(
-            "image/jpeg",
-            0.95
-        );
+    ctx.strokeStyle =
+    "#ff0000";
 
+    ctx.lineWidth=4;
 
-    if(currentSide === "front"){
+    ctx.strokeRect(
+        x,
+        y,
+        w,
+        h
+    );
 
-        frontImage = imageData;
+    ctx.restore();
 
-        document
-        .getElementById("frontStatus")
-        .textContent =
-            " ✓ तयार";
-
-        setStatus(
-            "cropStatus",
-            "Front Side save झाला. आता Back Side निवडा."
-        );
-
-    }else{
-
-        backImage = imageData;
-
-        document
-        .getElementById("backStatus")
-        .textContent =
-            " ✓ तयार";
-
-        setStatus(
-            "cropStatus",
-            "Back Side save झाला."
-        );
-    }
-
-
-    checkReady();
 }
 
 
-function checkReady(){
-
-    const btn =
-        document.getElementById(
-            "downloadBtn"
-        );
-
-    if(frontImage && backImage){
-
-        btn.disabled = false;
-
-        setStatus(
-            "downloadStatus",
-            "✓ Front आणि Back दोन्ही तयार आहेत.\n" +
-            "आता 4×6 Print PDF तयार करा."
-        );
-
-        document
-        .getElementById("downloadStatus")
-        .classList.add("success");
-
-    }
-}
-
-
-/* -------------------------------
-   CREATE 4×6 PDF
+/* --------------------------------
+   SAVE CROP
 -------------------------------- */
 
-function createPDF(){
+async function saveCrop(){
 
-    if(!frontImage || !backImage){
+    if(!cropReady){
 
         alert(
-            "Front आणि Back दोन्ही crop करा."
+        "आधी Aadhaar भाग select करा."
         );
 
         return;
     }
 
 
-    const {
-        jsPDF
-    } = window.jspdf;
+    let x =
+    Math.min(
+        startX,
+        endX
+    );
+
+    let y =
+    Math.min(
+        startY,
+        endY
+    );
+
+    let w =
+    Math.abs(
+        endX-startX
+    );
+
+    let h =
+    Math.abs(
+        endY-startY
+    );
 
 
-    /*
-      4×6 inch page
+    let page =
+    await pdfDoc.getPage(
+        currentPage
+    );
 
-      jsPDF मध्ये unit = inch
-    */
-
-    const doc =
-        new jsPDF({
-            orientation:"portrait",
-            unit:"in",
-            format:[4,6],
-            compress:true
-        });
+    let viewport =
+    page.getViewport({
+        scale:scale
+    });
 
 
-    /*
-      Aadhaar physical size
+    let source =
+    document.createElement(
+        "canvas"
+    );
 
-      85.60 mm = 3.3701 inch
-      53.98 mm = 2.1252 inch
-    */
+    source.width =
+    viewport.width;
 
-    const cardWidth =
-        53.98 / 25.4;
-
-    const cardHeight =
-        85.60 / 25.4;
+    source.height =
+    viewport.height;
 
 
-    /*
-      4×6 portrait paper.
-
-      Card landscape आहे:
-      width = 85.60 mm
-      height = 53.98 mm
-    */
-
-    const aadhaarW =
-        85.60 / 25.4;
-
-    const aadhaarH =
-        53.98 / 25.4;
+    let sctx =
+    source.getContext(
+        "2d"
+    );
 
 
-    /*
-      Center position
+    await page.render({
 
-      4 inch paper width
-      6 inch paper height
-    */
+        canvasContext:sctx,
 
-    const pageW = 4;
-    const pageH = 6;
+        viewport:viewport
 
-    const x =
-        (pageW-aadhaarW)/2;
-
-    const y =
-        (pageH-aadhaarH)/2;
+    }).promise;
 
 
-    /*
-      FRONT PAGE
-    */
+    let cropped =
+    document.createElement(
+        "canvas"
+    );
 
-    doc.addImage(
-        frontImage,
-        "JPEG",
+
+    cropped.width =
+    Math.round(w);
+
+    cropped.height =
+    Math.round(h);
+
+
+    let cctx =
+    cropped.getContext(
+        "2d"
+    );
+
+
+    cctx.drawImage(
+
+        source,
+
         x,
         y,
-        aadhaarW,
-        aadhaarH
+        w,
+        h,
+
+        0,
+        0,
+        w,
+        h
+
     );
 
 
     /*
-      BACK PAGE
+       Aadhaar ratio
+       85.60 / 53.98
+    */
 
-      अगदी same X/Y position
-      त्यामुळे duplex print साठी
-      front/back alignment समान राहते.
+    const ratio =
+    85.60/53.98;
+
+
+    let currentRatio =
+    w/h;
+
+
+    let finalCanvas =
+    cropped;
+
+
+    /*
+       Center crop करून exact
+       Aadhaar ratio ठेवतो.
+    */
+
+    if(
+        Math.abs(
+            currentRatio-ratio
+        )>0.01
+    ){
+
+        let newW=w;
+
+        let newH=h;
+
+        if(
+            currentRatio>ratio
+        ){
+
+            newW =
+            h*ratio;
+
+        }else{
+
+            newH =
+            w/ratio;
+
+        }
+
+
+        let sx =
+        (w-newW)/2;
+
+        let sy =
+        (h-newH)/2;
+
+
+        finalCanvas =
+        document.createElement(
+            "canvas"
+        );
+
+
+        finalCanvas.width =
+        Math.round(newW);
+
+        finalCanvas.height =
+        Math.round(newH);
+
+
+        let fctx =
+        finalCanvas.getContext(
+            "2d"
+        );
+
+
+        fctx.drawImage(
+
+            cropped,
+
+            sx,
+            sy,
+            newW,
+            newH,
+
+            0,
+            0,
+            newW,
+            newH
+
+        );
+
+    }
+
+
+    let image =
+    finalCanvas.toDataURL(
+        "image/jpeg",
+        .98
+    );
+
+
+    if(
+        currentSide==="front"
+    ){
+
+        frontImage=image;
+
+        document
+        .getElementById(
+            "frontStatus"
+        )
+        .textContent =
+        "✓ Front तयार";
+
+        document
+        .getElementById(
+            "cropStatus"
+        )
+        .textContent =
+        "✓ Front Aadhaar मध्ये paste झाला.\n"+
+        "आता Back Side उघडा.";
+
+    }
+
+
+    if(
+        currentSide==="back"
+    ){
+
+        backImage=image;
+
+        document
+        .getElementById(
+            "backStatus"
+        )
+        .textContent =
+        "✓ Back तयार";
+
+        document
+        .getElementById(
+            "cropStatus"
+        )
+        .textContent =
+        "✓ Back Aadhaar मध्ये paste झाला.";
+
+    }
+
+
+    updatePreview();
+
+}
+
+
+/* --------------------------------
+   PREVIEW
+-------------------------------- */
+
+function updatePreview(){
+
+    if(
+        frontImage &&
+        backImage
+    ){
+
+        document
+        .getElementById(
+            "previewCard"
+        )
+        .classList
+        .remove(
+            "hidden"
+        );
+
+
+        document
+        .getElementById(
+            "frontPreview"
+        )
+        .src =
+        frontImage;
+
+
+        document
+        .getElementById(
+            "backPreview"
+        )
+        .src =
+        backImage;
+
+
+        document
+        .getElementById(
+            "finalStatus"
+        )
+        .textContent =
+        "✓ Front आणि Back दोन्ही तयार आहेत.\n"+
+        "आता 4×6 PDF Download किंवा Print करा.";
+
+
+        document
+        .getElementById(
+            "finalStatus"
+        )
+        .classList
+        .add(
+            "success"
+        );
+
+    }
+
+}
+
+
+/* --------------------------------
+   RESET
+-------------------------------- */
+
+function resetCropOnly(){
+
+    startX=0;
+
+    startY=0;
+
+    endX=0;
+
+    endY=0;
+
+    dragging=false;
+
+    cropReady=false;
+
+    document
+    .getElementById(
+        "cropStatus"
+    )
+    .textContent =
+    "PDF वर Aadhaar चा भाग select करा.";
+
+}
+
+
+function resetCrop(){
+
+    renderPage();
+
+}
+
+
+/* --------------------------------
+   CREATE PDF
+-------------------------------- */
+
+function makePDF(){
+
+    const {
+        jsPDF
+    } =
+    window.jspdf;
+
+
+    /*
+       4 x 6 inch
+
+       Portrait
+    */
+
+    let doc =
+    new jsPDF({
+
+        orientation:"portrait",
+
+        unit:"in",
+
+        format:[4,6],
+
+        compress:true
+
+    });
+
+
+    /*
+       Aadhaar size
+
+       85.60 mm = 3.3700787 inch
+       53.98 mm = 2.1251968 inch
+    */
+
+    const cardW =
+    85.60/25.4;
+
+    const cardH =
+    53.98/25.4;
+
+
+    /*
+       4 x 6 paper center
+    */
+
+    const x =
+    (4-cardW)/2;
+
+    const y =
+    (6-cardH)/2;
+
+
+    /*
+       FRONT
+    */
+
+    doc.addImage(
+
+        frontImage,
+
+        "JPEG",
+
+        x,
+        y,
+
+        cardW,
+        cardH
+
+    );
+
+
+    /*
+       BACK
     */
 
     doc.addPage(
@@ -1106,39 +1681,157 @@ function createPDF(){
 
 
     doc.addImage(
+
         backImage,
+
         "JPEG",
+
         x,
         y,
-        aadhaarW,
-        aadhaarH
+
+        cardW,
+        cardH
+
     );
+
+
+    return doc;
+
+}
+
+
+/* --------------------------------
+   DOWNLOAD
+-------------------------------- */
+
+function downloadPDF(){
+
+    if(
+        !frontImage ||
+        !backImage
+    ){
+
+        alert(
+        "Front आणि Back दोन्ही तयार करा."
+        );
+
+        return;
+    }
+
+
+    let doc =
+    makePDF();
 
 
     doc.save(
-        "Aadhaar_4x6_Front_Back.pdf"
+        "Aadhaar_4x6_Print.pdf"
     );
 
-
-    setStatus(
-        "downloadStatus",
-        "✓ PDF तयार झाली.\n\n" +
-        "Print करताना:\n" +
-        "• Paper Size = 4×6 inch\n" +
-        "• Scale = 100% / Actual Size\n" +
-        "• Fit to Page बंद ठेवा\n" +
-        "• Front-Back / Duplex निवडा\n" +
-        "• Printer मध्ये योग्य Flip option निवडा."
-    );
 }
 
 
-function setStatus(id,text){
+/* --------------------------------
+   PRINT
+-------------------------------- */
 
-    document
-    .getElementById(id)
-    .textContent = text;
+function printAadhaar(){
+
+    if(
+        !frontImage ||
+        !backImage
+    ){
+
+        alert(
+        "Front आणि Back दोन्ही तयार करा."
+        );
+
+        return;
+    }
+
+
+    let doc =
+    makePDF();
+
+
+    /*
+       Blob URL तयार
+    */
+
+    let blob =
+    doc.output(
+        "blob"
+    );
+
+
+    let url =
+    URL.createObjectURL(
+        blob
+    );
+
+
+    /*
+       नवीन print window
+    */
+
+    let win =
+    window.open(
+        url,
+        "_blank"
+    );
+
+
+    if(!win){
+
+        alert(
+        "Popup Block झाला आहे.\n"+
+        "Browser मध्ये popup allow करा."
+        );
+
+        return;
+    }
+
+
+    setTimeout(
+    function(){
+
+        try{
+
+            win.print();
+
+        }catch(e){
+
+            console.log(e);
+
+        }
+
+    },
+    1500
+    );
+
 }
+
+
+/* --------------------------------
+   ENTER PASSWORD
+-------------------------------- */
+
+document
+.getElementById(
+    "pdfPassword"
+)
+.addEventListener(
+"keydown",
+function(e){
+
+    if(
+        e.key==="Enter"
+    ){
+
+        submitPassword();
+
+    }
+
+});
 
 </script>
 
