@@ -4,26 +4,212 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Passport Photo</title>
+    <title>Passport Photo Editor</title>
 
     <link rel="stylesheet" href="passport.css">
 </head>
 
 <body>
 
-<div class="editor">
+<div class="topbar">
 
-    <a href="../index.html" class="back">← मुख्य Menu</a>
+    <a href="../index.html" class="back-btn">
+        ← मुख्य Menu
+    </a>
 
-    <h1>📷 Passport Photo</h1>
-
-    <div class="upload-box">
-        <input type="file" id="photoInput" accept="image/*">
+    <div class="title-box">
+        <h1>📷 Passport Photo Editor</h1>
+        <p>Passport Photo तयार करा</p>
     </div>
 
-    <div id="preview"></div>
+</div>
+
+
+<div class="editor-container">
+
+    <!-- LEFT CONTROL PANEL -->
+
+    <div class="control-panel">
+
+        <h2>Photo Upload</h2>
+
+        <label class="upload-label">
+            📷 फोटो निवडा
+        </label>
+
+        <input
+            type="file"
+            id="photoInput"
+            accept="image/jpeg,image/png,image/webp"
+        >
+
+
+        <div class="section">
+
+            <h3>Photo Size</h3>
+
+            <select id="photoSize">
+
+                <option value="35x45">
+                    35 × 45 mm
+                </option>
+
+                <option value="51x51">
+                    51 × 51 mm
+                </option>
+
+                <option value="2x2">
+                    2 × 2 Inch
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <div class="section">
+
+            <h3>Background Color</h3>
+
+            <div class="bg-buttons">
+
+                <button
+                    type="button"
+                    class="bg-btn white"
+                    data-bg="#ffffff">
+                    White
+                </button>
+
+                <button
+                    type="button"
+                    class="bg-btn blue"
+                    data-bg="#dff3ff">
+                    Light Blue
+                </button>
+
+                <button
+                    type="button"
+                    class="bg-btn red"
+                    data-bg="#ff0000">
+                    Red
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <div class="section">
+
+            <h3>Photo Count</h3>
+
+            <select id="photoCount">
+
+                <option value="1">1 Photo</option>
+                <option value="2">2 Photos</option>
+                <option value="4">4 Photos</option>
+                <option value="6">6 Photos</option>
+                <option value="8">8 Photos</option>
+                <option value="10">10 Photos</option>
+                <option value="12" selected>12 Photos</option>
+
+            </select>
+
+        </div>
+
+
+        <div class="section">
+
+            <button
+                type="button"
+                id="createLayout"
+                class="main-btn">
+
+                4×6 Layout तयार करा
+
+            </button>
+
+
+            <button
+                type="button"
+                id="downloadJpg"
+                class="download-btn">
+
+                JPG Download
+
+            </button>
+
+
+            <button
+                type="button"
+                id="printBtn"
+                class="print-btn">
+
+                🖨️ 4×6 Print
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- RIGHT SIDE -->
+
+    <div class="preview-panel">
+
+        <div class="preview-section">
+
+            <h2>Original Photo</h2>
+
+            <div
+                id="photoPreview"
+                class="photo-preview">
+
+                <div class="empty-message">
+
+                    <div class="empty-icon">📷</div>
+
+                    <p>
+                        फोटो Upload करा
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="preview-section">
+
+            <div class="print-title">
+
+                <h2>4×6 Print Preview</h2>
+
+                <span>
+                    4 × 6 Inch
+                </span>
+
+            </div>
+
+
+            <div class="paper-wrapper">
+
+                <canvas
+                    id="printCanvas"
+                    width="1200"
+                    height="1800">
+                </canvas>
+
+            </div>
+
+        </div>
+
+    </div>
 
 </div>
+
 
 <script src="passport.js"></script>
 
