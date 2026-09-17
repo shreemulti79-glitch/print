@@ -1,322 +1,626 @@
-* {
-    box-sizing: border-box;
-}
+let uploadedImage = null;
+let backgroundColor = "#ffffff";
 
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #f1f5f9;
-    color: #111827;
-}
+const photoInput = document.getElementById("photoInput");
+const photoPreview = document.getElementById("photoPreview");
+const photoSize = document.getElementById("photoSize");
+const photoCount = document.getElementById("photoCount");
 
-/* TOP BAR */
+const canvas = document.getElementById("printCanvas");
+const ctx = canvas.getContext("2d");
 
-.topbar {
-    background: linear-gradient(135deg, #2563eb, #6d28d9);
-    color: white;
-    padding: 18px 25px;
-    display: flex;
-    align-items: center;
-    gap: 25px;
-}
 
-.back-btn {
-    color: white;
-    text-decoration: none;
-    background: rgba(255,255,255,0.15);
-    padding: 10px 15px;
-    border-radius: 8px;
-}
+// ===============================
+// PHOTO UPLOAD
+// ===============================
 
-.title-box {
-    flex: 1;
-    text-align: center;
-}
+photoInput.addEventListener("change", function () {
 
-.title-box h1 {
-    margin: 0 0 5px;
-    font-size: 28px;
-}
+    const file = this.files[0];
 
-.title-box p {
-    margin: 0;
-    opacity: 0.9;
-}
+    if (!file) return;
 
-
-/* MAIN */
-
-.editor-container {
-    width: 95%;
-    max-width: 1350px;
-    margin: 25px auto;
-
-    display: grid;
-    grid-template-columns: 300px 1fr;
-
-    gap: 25px;
-}
-
-
-/* CONTROL PANEL */
-
-.control-panel {
-    background: white;
-    padding: 22px;
-    border-radius: 16px;
-
-    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
-
-    height: fit-content;
-}
-
-.control-panel h2 {
-    margin-top: 0;
-}
-
-.control-panel h3 {
-    margin-bottom: 10px;
-}
-
-.section {
-    margin-top: 22px;
-}
-
-.upload-label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: bold;
-}
-
-input[type="file"] {
-    width: 100%;
-    padding: 9px;
-    border: 1px solid #d1d5db;
-    border-radius: 8px;
-    background: #f9fafb;
-}
-
-select {
-    width: 100%;
-    padding: 11px;
-    border: 1px solid #d1d5db;
-    border-radius: 8px;
-    background: white;
-    font-size: 14px;
-}
-
-
-/* BACKGROUND BUTTONS */
-
-.bg-buttons {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 8px;
-}
-
-.bg-btn {
-    border: 1px solid #d1d5db;
-    padding: 10px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-.bg-btn:hover {
-    transform: translateY(-1px);
-}
-
-.bg-btn.white {
-    background: white;
-    color: #111827;
-}
-
-.bg-btn.blue {
-    background: #dff3ff;
-    color: #111827;
-}
-
-.bg-btn.red {
-    background: #ef4444;
-    color: white;
-}
-
-
-/* MAIN BUTTONS */
-
-.main-btn,
-.download-btn,
-.print-btn {
-    width: 100%;
-    border: none;
-    padding: 13px;
-    margin-top: 10px;
-
-    border-radius: 9px;
-
-    color: white;
-
-    font-size: 15px;
-    font-weight: bold;
-
-    cursor: pointer;
-}
-
-.main-btn {
-    background: #2563eb;
-}
-
-.download-btn {
-    background: #16a34a;
-}
-
-.print-btn {
-    background: #7c3aed;
-}
-
-.main-btn:hover,
-.download-btn:hover,
-.print-btn:hover {
-    opacity: 0.9;
-}
-
-
-/* PREVIEW PANEL */
-
-.preview-panel {
-    background: white;
-    padding: 22px;
-    border-radius: 16px;
-
-    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
-}
-
-.preview-section h2 {
-    margin-top: 0;
-}
-
-
-/* ORIGINAL PHOTO */
-
-.photo-preview {
-    min-height: 300px;
-
-    background: #f8fafc;
-
-    border: 2px dashed #cbd5e1;
-
-    border-radius: 12px;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    overflow: hidden;
-
-    margin-bottom: 30px;
-}
-
-.photo-preview img {
-    max-width: 320px;
-    max-height: 400px;
-
-    object-fit: contain;
-
-    display: block;
-}
-
-.empty-message {
-    text-align: center;
-    color: #64748b;
-}
-
-.empty-icon {
-    font-size: 55px;
-    margin-bottom: 10px;
-}
-
-
-/* PRINT TITLE */
-
-.print-title {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    margin-bottom: 15px;
-}
-
-.print-title h2 {
-    margin: 0;
-}
-
-.print-title span {
-    background: #e0e7ff;
-    color: #3730a3;
-
-    padding: 7px 12px;
-
-    border-radius: 20px;
-
-    font-size: 13px;
-    font-weight: bold;
-}
-
-
-/* 4×6 PAPER */
-
-.paper-wrapper {
-    background: #e5e7eb;
-
-    padding: 25px;
-
-    border-radius: 12px;
-
-    display: flex;
-    justify-content: center;
-
-    overflow: auto;
-}
-
-
-/*
-   Canvas वास्तविक 4×6 proportion मध्ये आहे.
-   Screen वर फक्त preview साठी छोटा दाखवला आहे.
-*/
-
-#printCanvas {
-    width: 400px;
-    height: 600px;
-
-    background: white;
-
-    display: block;
-
-    box-shadow:
-        0 8px 25px rgba(0,0,0,0.25);
-}
-
-
-/* MOBILE */
-
-@media (max-width: 850px) {
-
-    .topbar {
-        flex-direction: column;
-        text-align: center;
+    if (!file.type.startsWith("image/")) {
+        alert("कृपया JPG / PNG फोटो निवडा.");
+        return;
     }
 
-    .editor-container {
-        grid-template-columns: 1fr;
+    const reader = new FileReader();
+
+    reader.onload = function (event) {
+
+        const image = new Image();
+
+        image.onload = function () {
+
+            uploadedImage = image;
+
+            photoPreview.innerHTML = "";
+
+            const previewImage = document.createElement("img");
+
+            previewImage.src = event.target.result;
+
+            photoPreview.appendChild(previewImage);
+
+            drawLayout();
+        };
+
+        image.src = event.target.result;
+    };
+
+    reader.readAsDataURL(file);
+
+});
+
+
+// ===============================
+// BACKGROUND COLOR
+// ===============================
+
+document.querySelectorAll(".bg-btn").forEach(function (button) {
+
+    button.addEventListener("click", function () {
+
+        backgroundColor = this.dataset.bg;
+
+        drawLayout();
+
+    });
+
+});
+
+
+// ===============================
+// PHOTO SIZE CHANGE
+// ===============================
+
+photoSize.addEventListener("change", function () {
+
+    drawLayout();
+
+});
+
+
+// ===============================
+// PHOTO COUNT CHANGE
+// ===============================
+
+photoCount.addEventListener("change", function () {
+
+    drawLayout();
+
+});
+
+
+// ===============================
+// CREATE 4×6 LAYOUT
+// ===============================
+
+document.getElementById("createLayout").addEventListener(
+    "click",
+    function () {
+
+        if (!uploadedImage) {
+
+            alert("आधी फोटो Upload करा.");
+
+            return;
+        }
+
+        drawLayout();
+
+        alert("4×6 Photo Layout तयार झाले.");
+
+    }
+);
+
+
+// ===============================
+// GET PHOTO SIZE
+// ===============================
+
+function getPhotoSize() {
+
+    const size = photoSize.value;
+
+    if (size === "35x45") {
+
+        return {
+            width: 300,
+            height: 386
+        };
+
     }
 
-    .control-panel {
-        width: 100%;
+    if (size === "51x51") {
+
+        return {
+            width: 300,
+            height: 300
+        };
+
     }
 
-    #printCanvas {
-        width: 300px;
-        height: 450px;
+    if (size === "2x2") {
+
+        return {
+            width: 300,
+            height: 300
+        };
+
+    }
+
+    return {
+        width: 300,
+        height: 386
+    };
+
+}
+
+
+// ===============================
+// DRAW 4×6
+// ===============================
+
+function drawLayout() {
+
+    ctx.clearRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
+
+
+    // White 4×6 Paper
+
+    ctx.fillStyle = "#ffffff";
+
+    ctx.fillRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
+
+
+    if (!uploadedImage) {
+
+        ctx.fillStyle = "#777777";
+
+        ctx.font = "40px Arial";
+
+        ctx.textAlign = "center";
+
+        ctx.fillText(
+            "Photo Upload करा",
+            canvas.width / 2,
+            canvas.height / 2
+        );
+
+        return;
+
+    }
+
+
+    const size = getPhotoSize();
+
+    const photoWidth = size.width;
+    const photoHeight = size.height;
+
+
+    let count = parseInt(
+        photoCount.value
+    );
+
+
+    const gap = 30;
+
+    let columns = 3;
+
+    let rows = Math.ceil(
+        count / columns
+    );
+
+
+    // जर फोटो उंच असेल
+    if (photoHeight > photoWidth) {
+
+        columns = 3;
+
+        rows = Math.ceil(
+            count / columns
+        );
+
+    }
+
+
+    let totalWidth =
+        columns * photoWidth +
+        (columns - 1) * gap;
+
+
+    let startX =
+        (canvas.width - totalWidth) / 2;
+
+
+    let totalHeight =
+        rows * photoHeight +
+        (rows - 1) * gap;
+
+
+    let startY =
+        (canvas.height - totalHeight) / 2;
+
+
+    // जर layout 4×6 मध्ये बसत नसेल
+    // तर फोटोचे प्रमाण कमी करा
+
+    let scale = 1;
+
+
+    if (totalWidth > canvas.width - 40) {
+
+        scale =
+            (canvas.width - 40) /
+            totalWidth;
+
+    }
+
+
+    if (totalHeight * scale >
+        canvas.height - 40) {
+
+        scale =
+            (canvas.height - 40) /
+            totalHeight;
+
+    }
+
+
+    const finalWidth =
+        photoWidth * scale;
+
+    const finalHeight =
+        photoHeight * scale;
+
+
+    const finalGap =
+        gap * scale;
+
+
+    const finalTotalWidth =
+        columns * finalWidth +
+        (columns - 1) * finalGap;
+
+
+    const finalRows =
+        Math.ceil(count / columns);
+
+
+    const finalTotalHeight =
+        finalRows * finalHeight +
+        (finalRows - 1) * finalGap;
+
+
+    const finalStartX =
+        (canvas.width -
+            finalTotalWidth) / 2;
+
+
+    const finalStartY =
+        (canvas.height -
+            finalTotalHeight) / 2;
+
+
+    // DRAW PHOTOS
+
+    for (
+        let i = 0;
+        i < count;
+        i++
+    ) {
+
+        const row =
+            Math.floor(i / columns);
+
+        const column =
+            i % columns;
+
+
+        const x =
+            finalStartX +
+            column *
+            (finalWidth + finalGap);
+
+
+        const y =
+            finalStartY +
+            row *
+            (finalHeight + finalGap);
+
+
+        // Background
+
+        ctx.fillStyle =
+            backgroundColor;
+
+        ctx.fillRect(
+            x,
+            y,
+            finalWidth,
+            finalHeight
+        );
+
+
+        // Photo
+
+        drawImageCover(
+            uploadedImage,
+            x,
+            y,
+            finalWidth,
+            finalHeight
+        );
+
+
+        // Thin Border
+
+        ctx.strokeStyle =
+            "#999999";
+
+        ctx.lineWidth = 2;
+
+        ctx.strokeRect(
+            x,
+            y,
+            finalWidth,
+            finalHeight
+        );
+
     }
 
 }
+
+
+// ===============================
+// IMAGE CROP / COVER
+// ===============================
+
+function drawImageCover(
+    image,
+    x,
+    y,
+    width,
+    height
+) {
+
+    const imageRatio =
+        image.width /
+        image.height;
+
+
+    const boxRatio =
+        width /
+        height;
+
+
+    let sourceWidth;
+    let sourceHeight;
+    let sourceX;
+    let sourceY;
+
+
+    if (imageRatio > boxRatio) {
+
+        sourceHeight =
+            image.height;
+
+        sourceWidth =
+            image.height *
+            boxRatio;
+
+        sourceX =
+            (image.width -
+                sourceWidth) / 2;
+
+        sourceY = 0;
+
+    }
+
+    else {
+
+        sourceWidth =
+            image.width;
+
+        sourceHeight =
+            image.width /
+            boxRatio;
+
+        sourceX = 0;
+
+        sourceY =
+            (image.height -
+                sourceHeight) / 2;
+
+    }
+
+
+    ctx.drawImage(
+
+        image,
+
+        sourceX,
+        sourceY,
+        sourceWidth,
+        sourceHeight,
+
+        x,
+        y,
+        width,
+        height
+
+    );
+
+}
+
+
+// ===============================
+// JPG DOWNLOAD
+// ===============================
+
+document.getElementById("downloadJpg").addEventListener(
+    "click",
+    function () {
+
+        if (!uploadedImage) {
+
+            alert("आधी फोटो Upload करा.");
+
+            return;
+        }
+
+
+        drawLayout();
+
+
+        const link =
+            document.createElement("a");
+
+
+        link.download =
+            "passport-photo-4x6.jpg";
+
+
+        link.href =
+            canvas.toDataURL(
+                "image/jpeg",
+                0.98
+            );
+
+
+        link.click();
+
+    }
+);
+
+
+// ===============================
+// PRINT
+// ===============================
+
+document.getElementById("printBtn").addEventListener(
+    "click",
+    function () {
+
+        if (!uploadedImage) {
+
+            alert("आधी फोटो Upload करा.");
+
+            return;
+        }
+
+
+        drawLayout();
+
+
+        const image =
+            canvas.toDataURL(
+                "image/jpeg",
+                1
+            );
+
+
+        const printWindow =
+            window.open(
+                "",
+                "_blank"
+            );
+
+
+        if (!printWindow) {
+
+            alert(
+                "Popup Block झाला आहे. Browser मध्ये popup Allow करा."
+            );
+
+            return;
+
+        }
+
+
+        printWindow.document.write(`
+
+            <!DOCTYPE html>
+
+            <html>
+
+            <head>
+
+                <title>
+                    4×6 Passport Photo
+                </title>
+
+                <style>
+
+                    @page {
+                        size: 4in 6in;
+                        margin: 0;
+                    }
+
+                    html,
+                    body {
+
+                        margin: 0;
+                        padding: 0;
+
+                        width: 4in;
+                        height: 6in;
+
+                    }
+
+                    img {
+
+                        width: 4in;
+                        height: 6in;
+
+                        display: block;
+
+                    }
+
+                </style>
+
+            </head>
+
+            <body>
+
+                <img src="${image}">
+
+            </body>
+
+            </html>
+
+        `);
+
+
+        printWindow.document.close();
+
+
+        printWindow.onload = function () {
+
+            printWindow.focus();
+
+            printWindow.print();
+
+        };
+
+    }
+);
+
+
+// ===============================
+// FIRST LOAD
+// ===============================
+
+drawLayout();
