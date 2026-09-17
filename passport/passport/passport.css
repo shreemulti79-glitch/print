@@ -1,34 +1,322 @@
+* {
+    box-sizing: border-box;
+}
+
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background: #f4f7fb;
+    background: #f1f5f9;
+    color: #111827;
 }
 
-.editor {
-    width: min(1000px, 94%);
-    margin: 30px auto;
-    background: white;
-    padding: 25px;
-    border-radius: 16px;
+/* TOP BAR */
+
+.topbar {
+    background: linear-gradient(135deg, #2563eb, #6d28d9);
+    color: white;
+    padding: 18px 25px;
+    display: flex;
+    align-items: center;
+    gap: 25px;
 }
 
-.back {
+.back-btn {
+    color: white;
     text-decoration: none;
-    color: #2563eb;
+    background: rgba(255,255,255,0.15);
+    padding: 10px 15px;
+    border-radius: 8px;
 }
 
-h1 {
-    margin-top: 25px;
-}
-
-.upload-box {
-    margin-top: 25px;
-    padding: 30px;
-    border: 2px dashed #aaa;
+.title-box {
+    flex: 1;
     text-align: center;
 }
 
-#preview img {
-    max-width: 300px;
-    margin-top: 20px;
+.title-box h1 {
+    margin: 0 0 5px;
+    font-size: 28px;
+}
+
+.title-box p {
+    margin: 0;
+    opacity: 0.9;
+}
+
+
+/* MAIN */
+
+.editor-container {
+    width: 95%;
+    max-width: 1350px;
+    margin: 25px auto;
+
+    display: grid;
+    grid-template-columns: 300px 1fr;
+
+    gap: 25px;
+}
+
+
+/* CONTROL PANEL */
+
+.control-panel {
+    background: white;
+    padding: 22px;
+    border-radius: 16px;
+
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+
+    height: fit-content;
+}
+
+.control-panel h2 {
+    margin-top: 0;
+}
+
+.control-panel h3 {
+    margin-bottom: 10px;
+}
+
+.section {
+    margin-top: 22px;
+}
+
+.upload-label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+input[type="file"] {
+    width: 100%;
+    padding: 9px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    background: #f9fafb;
+}
+
+select {
+    width: 100%;
+    padding: 11px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    background: white;
+    font-size: 14px;
+}
+
+
+/* BACKGROUND BUTTONS */
+
+.bg-buttons {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+}
+
+.bg-btn {
+    border: 1px solid #d1d5db;
+    padding: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.bg-btn:hover {
+    transform: translateY(-1px);
+}
+
+.bg-btn.white {
+    background: white;
+    color: #111827;
+}
+
+.bg-btn.blue {
+    background: #dff3ff;
+    color: #111827;
+}
+
+.bg-btn.red {
+    background: #ef4444;
+    color: white;
+}
+
+
+/* MAIN BUTTONS */
+
+.main-btn,
+.download-btn,
+.print-btn {
+    width: 100%;
+    border: none;
+    padding: 13px;
+    margin-top: 10px;
+
+    border-radius: 9px;
+
+    color: white;
+
+    font-size: 15px;
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+.main-btn {
+    background: #2563eb;
+}
+
+.download-btn {
+    background: #16a34a;
+}
+
+.print-btn {
+    background: #7c3aed;
+}
+
+.main-btn:hover,
+.download-btn:hover,
+.print-btn:hover {
+    opacity: 0.9;
+}
+
+
+/* PREVIEW PANEL */
+
+.preview-panel {
+    background: white;
+    padding: 22px;
+    border-radius: 16px;
+
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+}
+
+.preview-section h2 {
+    margin-top: 0;
+}
+
+
+/* ORIGINAL PHOTO */
+
+.photo-preview {
+    min-height: 300px;
+
+    background: #f8fafc;
+
+    border: 2px dashed #cbd5e1;
+
+    border-radius: 12px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    overflow: hidden;
+
+    margin-bottom: 30px;
+}
+
+.photo-preview img {
+    max-width: 320px;
+    max-height: 400px;
+
+    object-fit: contain;
+
+    display: block;
+}
+
+.empty-message {
+    text-align: center;
+    color: #64748b;
+}
+
+.empty-icon {
+    font-size: 55px;
+    margin-bottom: 10px;
+}
+
+
+/* PRINT TITLE */
+
+.print-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 15px;
+}
+
+.print-title h2 {
+    margin: 0;
+}
+
+.print-title span {
+    background: #e0e7ff;
+    color: #3730a3;
+
+    padding: 7px 12px;
+
+    border-radius: 20px;
+
+    font-size: 13px;
+    font-weight: bold;
+}
+
+
+/* 4×6 PAPER */
+
+.paper-wrapper {
+    background: #e5e7eb;
+
+    padding: 25px;
+
+    border-radius: 12px;
+
+    display: flex;
+    justify-content: center;
+
+    overflow: auto;
+}
+
+
+/*
+   Canvas वास्तविक 4×6 proportion मध्ये आहे.
+   Screen वर फक्त preview साठी छोटा दाखवला आहे.
+*/
+
+#printCanvas {
+    width: 400px;
+    height: 600px;
+
+    background: white;
+
+    display: block;
+
+    box-shadow:
+        0 8px 25px rgba(0,0,0,0.25);
+}
+
+
+/* MOBILE */
+
+@media (max-width: 850px) {
+
+    .topbar {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .editor-container {
+        grid-template-columns: 1fr;
+    }
+
+    .control-panel {
+        width: 100%;
+    }
+
+    #printCanvas {
+        width: 300px;
+        height: 450px;
+    }
+
 }
